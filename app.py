@@ -248,6 +248,19 @@ app = Flask(__name__)
 # app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1, x_proto=1, x_host=1, x_port=1)
 
 
+# Browser apps on other sites call this API, so allow cross-origin requests.
+# CORS_ORIGIN can narrow it to one site (e.g. https://example.org).
+CORS_ORIGIN = os.getenv("CORS_ORIGIN", "*")
+
+
+@app.after_request
+def _cors(resp):
+    resp.headers["Access-Control-Allow-Origin"] = CORS_ORIGIN
+    resp.headers["Access-Control-Allow-Methods"] = "GET, POST, OPTIONS"
+    resp.headers["Access-Control-Allow-Headers"] = "Content-Type"
+    return resp
+
+
 # -----------------------------
 # Shared preprocessing / tfidf
 # -----------------------------
