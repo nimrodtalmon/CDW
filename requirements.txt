@@ -1,0 +1,8 @@
+flask>=3.0
+waitress>=3.0
+numpy
+scipy
+scikit-learn
+sentence-transformers
+transformers
+hdbscan
